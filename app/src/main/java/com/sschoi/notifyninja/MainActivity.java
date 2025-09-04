@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,6 +81,12 @@ public class MainActivity extends AppCompatActivity {
                         Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
                 ));
             });
+        }
+        ComponentName cn = new ComponentName(this, MyNotificationListener.class);
+        if (NotificationManagerCompat.getEnabledListenerPackages(this).contains(getPackageName())) {
+            Log.d("Main", "Notification Listener 권한 허용됨");
+        } else {
+            Log.d("Main", "Notification Listener 권한 없음");
         }
     }
 
