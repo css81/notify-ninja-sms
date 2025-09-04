@@ -1,7 +1,12 @@
 <resources>
     <style name="Theme.NotifyNinja" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/purple_700</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorAccent">@color/teal_200</item>
+        <item name="colorPrimary">@color/blue_primary</item>
+        <item name="colorPrimaryVariant">@color/blue_primary_variant</item>
+        <item name="colorAccent">@color/blue_accent</item>
+    </style>
+
+    <!-- 스플래시 -->
+    <style name="Theme.NotifyNinja.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

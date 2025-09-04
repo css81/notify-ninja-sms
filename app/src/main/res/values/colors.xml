@@ -1,7 +1,9 @@
 <resources>
-    <color name="purple_500">#6200EE</color>
-    <color name="purple_700">#3700B3</color>
-    <color name="teal_200">#03DAC5</color>
+    <color name="blue_primary">#1976D2</color>
+    <color name="blue_primary_variant">#1565C0</color>
+    <color name="blue_accent">#03A9F4</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="splash_background">#1976D2</color> <!-- 블루 예시 -->
+
 </resources>
