@@ -12,7 +12,7 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "notify_ninja.db";
-    private static final int DB_VER = 1;
+    private static final int DB_VER = 2;
 
     private static final String TBL = "apps";
     private static final String COL_PKG = "package_name";
@@ -26,16 +26,34 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TBL + " (" +
-                COL_PKG + " TEXT PRIMARY KEY," +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +   // 고유 id
+                COL_PKG + " TEXT NOT NULL," +
                 COL_NAME + " TEXT," +
-                COL_PHONE + " TEXT" +
+                COL_PHONE + " TEXT," +
+                "UNIQUE(" + COL_PKG + ", " + COL_PHONE + ") ON CONFLICT IGNORE" +
                 ")");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
-        db.execSQL("DROP TABLE IF EXISTS " + TBL);
-        onCreate(db);
+        //db.execSQL("DROP TABLE IF EXISTS " + TBL);
+        //onCreate(db);
+        if (oldV == 1 && newV == 2) { // 앱+다중연락처 개선 기존디비 유지
+            // 1. 기존 테이블 백업
+            db.execSQL("ALTER TABLE " + TBL + " RENAME TO " + TBL + "_backup");
+
+            // 2. 새로운 구조로 테이블 생성
+            onCreate(db);
+
+            // 3. 데이터 복원
+            db.execSQL("INSERT OR IGNORE INTO " + TBL + " (" +
+                    COL_PKG + ", " + COL_NAME + ", " + COL_PHONE +
+                    ") SELECT " + COL_PKG + ", " + COL_NAME + ", " + COL_PHONE +
+                    " FROM " + TBL + "_backup");
+
+            // 4. 임시 테이블 삭제
+            db.execSQL("DROP TABLE " + TBL + "_backup");
+        }
     }
 
     public boolean insertApp(String pkg, String name, String phone) {
