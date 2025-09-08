@@ -87,15 +87,38 @@ public class DBHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public AppModel getByPackage(String pkg) {
+//    public AppModel getByPackage(String pkg) {
+//        SQLiteDatabase db = getReadableDatabase();
+//        Cursor c = db.query(TBL, new String[]{COL_PKG, COL_NAME, COL_PHONE},
+//                COL_PKG + "=?", new String[]{pkg}, null, null, null);
+//        AppModel m = null;
+//        if (c.moveToFirst()) {
+//            m = new AppModel(c.getString(0), c.getString(1), c.getString(2));
+//        }
+//        c.close();
+//        return m;
+//    }
+
+    public List<AppModel> getAllByPackage(String pkg) {
+        List<AppModel> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.query(TBL, new String[]{COL_PKG, COL_NAME, COL_PHONE},
-                COL_PKG + "=?", new String[]{pkg}, null, null, null);
-        AppModel m = null;
+        Cursor c = db.query(TBL,
+                new String[]{COL_PKG, COL_NAME, COL_PHONE},
+                COL_PKG + "=?",
+                new String[]{pkg},
+                null, null, null);
+
         if (c.moveToFirst()) {
-            m = new AppModel(c.getString(0), c.getString(1), c.getString(2));
+            do {
+                list.add(new AppModel(
+                        c.getString(0),  // package_name
+                        c.getString(1),  // app_name
+                        c.getString(2)   // phone
+                ));
+            } while (c.moveToNext());
         }
         c.close();
-        return m;
+        return list;
     }
+
 }
