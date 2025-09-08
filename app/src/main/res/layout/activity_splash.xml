@@ -32,6 +32,16 @@
         android:textColor="@android:color/white"
         android:layout_marginTop="8dp"/>
 
+    <!-- 개발자 이름 -->
+    <TextView
+        android:id="@+id/tvDeveloper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="by 최석순"
+        android:textSize="13sp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="4dp"/>
+
     <!-- 로딩 애니메이션 -->
     <ProgressBar
         android:id="@+id/progressBar"

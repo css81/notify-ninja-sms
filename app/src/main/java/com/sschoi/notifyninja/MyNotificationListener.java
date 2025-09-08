@@ -7,6 +7,8 @@ import android.service.notification.StatusBarNotification;
 import android.telephony.SmsManager;
 import android.util.Log;
 
+import java.util.List;
+
 public class MyNotificationListener extends NotificationListenerService {
 
     private static final String TAG = "NotiListener";
@@ -22,8 +24,9 @@ public class MyNotificationListener extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         String pkg = sbn.getPackageName();
-        AppModel target = db.getByPackage(pkg);
-        if (target == null) return;
+        // 등록된 모든 번호 조회
+        List<AppModel> targets = db.getAllByPackage(pkg);
+        if (targets.isEmpty()) return;
 
         Notification n = sbn.getNotification();
         CharSequence title = n.extras.getCharSequence(Notification.EXTRA_TITLE);
@@ -31,18 +34,15 @@ public class MyNotificationListener extends NotificationListenerService {
         CharSequence big   = n.extras.getCharSequence(Notification.EXTRA_BIG_TEXT);
 
         String body = buildMessage(title, text, big);
-        Log.d(TAG, "Matched " + pkg + " -> " + target.getPhone() + " | " + body);
 
-        sendSMS(target.getPhone(), body);
+        int count = 0;
+        for (AppModel target : targets) {
+            if (count >= 5) break; // 최대 5명까지만 발송
+            SMSHelper.sendSMS(this, target.getPhone(), body);
+            Log.d(TAG, "SMS sent to " + target.getPhone() + " | " + body);
+            count++;
+        }
 
-//        try {
-//            SmsManager sms = (Build.VERSION.SDK_INT >= 31)
-//                    ? this.getSystemService(SmsManager.class)
-//                    : SmsManager.getDefault();
-//            sms.sendTextMessage(target.getPhone(), null, body, null, null);
-//        } catch (Exception e) {
-//            Log.e(TAG, "SMS send failed: " + e.getMessage(), e);
-//        }
     }
 
     private String buildMessage(CharSequence title, CharSequence text, CharSequence big) {
@@ -55,15 +55,6 @@ public class MyNotificationListener extends NotificationListenerService {
         return s.isEmpty() ? "(알림 내용 없음)" : s;
     }
 
-    private void sendSMS(String phoneNumber, String message) {
-        //SmsManager smsManager = SmsManager.getDefault();
-        SmsManager sms = (Build.VERSION.SDK_INT >= 31)
-                ? getSystemService(SmsManager.class)
-                : SmsManager.getDefault();
-        for (String part : sms.divideMessage(message)) {
-            sms.sendTextMessage(phoneNumber, null, part, null, null);
-            Log.d(TAG, "SMS sent to " + phoneNumber + ": " + part);
-        }
-    }
+
 
 }

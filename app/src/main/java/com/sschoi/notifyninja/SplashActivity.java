@@ -17,12 +17,15 @@ public class SplashActivity extends AppCompatActivity {
 
         // 버전 가져와서 표시
         TextView tvVersion = findViewById(R.id.tvVersion);
+        TextView tvDeveloper = findViewById(R.id.tvDeveloper);
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;  // AndroidManifest의 versionName
             tvVersion.setText("v" + version);
+            tvDeveloper.setText(getString(R.string.developer_name));
         } catch (PackageManager.NameNotFoundException e) {
             tvVersion.setText("v1.0");
+            tvDeveloper.setText("by 최석순");
         }
 
         // 2초 후 MainActivity 실행

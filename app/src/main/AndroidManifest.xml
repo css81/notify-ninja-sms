@@ -1,6 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.sschoi.notifyninja">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- SMS 전송 권한 -->
     <uses-permission android:name="android.permission.SEND_SMS"/>
