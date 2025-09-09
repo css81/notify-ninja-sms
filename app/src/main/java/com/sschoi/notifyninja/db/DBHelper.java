@@ -1,10 +1,12 @@
-package com.sschoi.notifyninja;
+package com.sschoi.notifyninja.db;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.sschoi.notifyninja.model.AppModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,19 +27,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TBL + " (" +
+        // 기존 앱 등록 테이블
+		db.execSQL("CREATE TABLE " + TBL + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +   // 고유 id
                 COL_PKG + " TEXT NOT NULL," +
                 COL_NAME + " TEXT," +
                 COL_PHONE + " TEXT," +
                 "UNIQUE(" + COL_PKG + ", " + COL_PHONE + ") ON CONFLICT IGNORE" +
-                ")");
+                ")");		
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
-        //db.execSQL("DROP TABLE IF EXISTS " + TBL);
-        //onCreate(db);
+
         if (oldV == 1 && newV == 2) { // 앱+다중연락처 개선 기존디비 유지
             // 1. 기존 테이블 백업
             db.execSQL("ALTER TABLE " + TBL + " RENAME TO " + TBL + "_backup");
@@ -120,5 +122,4 @@ public class DBHelper extends SQLiteOpenHelper {
         c.close();
         return list;
     }
-
 }

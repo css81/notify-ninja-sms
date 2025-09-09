@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja;
+package com.sschoi.notifyninja.ui;
 
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -13,6 +13,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.sschoi.notifyninja.R;
+import com.sschoi.notifyninja.db.DBHelper;
+import com.sschoi.notifyninja.model.AppModel;
 
 import java.util.ArrayList;
 import java.util.List;

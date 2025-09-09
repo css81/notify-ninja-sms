@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja;
+package com.sschoi.notifyninja.service;
 
 import android.app.Notification;
 import android.os.Build;
@@ -7,17 +7,25 @@ import android.service.notification.StatusBarNotification;
 import android.telephony.SmsManager;
 import android.util.Log;
 
+import com.sschoi.notifyninja.db.DBHelper;
+import com.sschoi.notifyninja.db.LogDBHelper;
+import com.sschoi.notifyninja.model.AppModel;
+import com.sschoi.notifyninja.util.SMSHelper;
+
 import java.util.List;
 
 public class MyNotificationListener extends NotificationListenerService {
 
     private static final String TAG = "NotiListener";
     private DBHelper db;
+    private LogDBHelper logDb;  // 로그 전용 DB
 
     @Override
     public void onCreate() {
         super.onCreate();
         db = new DBHelper(this);
+        logDb = new LogDBHelper(this);
+
         Log.d(TAG, "Service created");
     }
 
@@ -38,9 +46,15 @@ public class MyNotificationListener extends NotificationListenerService {
         int count = 0;
         for (AppModel target : targets) {
             if (count >= 5) break; // 최대 5명까지만 발송
-            SMSHelper.sendSMS(this, target.getPhone(), body);
-            Log.d(TAG, "SMS sent to " + target.getPhone() + " | " + body);
+			
+			boolean sent = SMSHelper.sendSMS(this, target.getPhone(), body);
+
+            // 로그 DB 기록
+            logDb.insertLog(pkg, target.getPhone(), body, sent ? "SENT" : "FAILED");
+
+            Log.d(TAG, "SMS " + (sent ? "sent" : "fail") + " to " + target.getPhone() + " | " + body);
             count++;
+			
         }
 
     }
