@@ -1,16 +1,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- SMS 전송 권한 -->
+    <!-- =========================================
+         권한 설정
+         ========================================= -->
+
+    <!-- SMS 전송 권한: SMS를 보내고 받기 위해 필요 -->
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
+
+    <!-- 다른 앱 패키지 조회 권한: 특정 API에서 필요 -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
-    <!-- 알림 접근 권한 -->
+    <!-- 알림 접근 권한: NotificationListenerService를 사용하기 위해 필요 -->
     <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
         tools:ignore="ProtectedPermissions"/>
-
+    
+    <!-- =========================================
+         어플리케이션 정의
+         ========================================= -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,8 +28,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NotifyNinja">
 
-        <activity
-            android:name=".SplashActivity"
+        <!-- =========================================
+             초기 화면: 개인정보/권한 동의 화면
+             - SplashActivity 대신 PrivacyConsentActivity가 시작 화면
+             ========================================= -->
+        <activity android:name=".ui.PrivacyConsentActivity"
             android:exported="true"
             android:theme="@style/Theme.NotifyNinja.NoActionBar">
             <intent-filter>
@@ -29,14 +41,30 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".RegisterActivity"
-            android:exported="true"/>
-        
-        <activity android:name=".MainActivity"
+        <!-- 스플래시 화면 -->
+        <activity
+            android:name=".ui.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.NotifyNinja.NoActionBar"/>
+
+        <!-- 메인 화면 -->
+        <activity android:name=".ui.MainActivity"
             android:exported="true" />
 
+        <!-- 앱 등록 화면 -->
+        <activity android:name=".ui.RegisterActivity"
+            android:exported="true"/>
+
+        <!-- 로그 조회 화면 -->
+        <activity android:name=".ui.LogActivity"
+            android:exported="true"/>
+        
+        <!-- =========================================
+             Notification Listener Service
+             - 알림을 감지해서 SMS 포워딩 등 처리
+             ========================================= -->
         <service
-            android:name=".MyNotificationListener"
+            android:name=".service.MyNotificationListener"
             android:label="Notification Forwarder"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
             android:exported="true">

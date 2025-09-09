@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja;
+package com.sschoi.notifyninja.model;
 
 public class AppModel {
     private final String packageName;

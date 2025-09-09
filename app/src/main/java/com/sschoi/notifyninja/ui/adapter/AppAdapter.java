@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja;
+package com.sschoi.notifyninja.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.sschoi.notifyninja.R;
+import com.sschoi.notifyninja.model.AppModel;
 
 import java.util.ArrayList;
 import java.util.List;

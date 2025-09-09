@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja;
+package com.sschoi.notifyninja.ui;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.sschoi.notifyninja.R;
 
 public class SplashActivity extends AppCompatActivity {
     @Override

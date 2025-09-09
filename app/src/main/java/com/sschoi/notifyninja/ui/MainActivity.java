@@ -1,29 +1,33 @@
-package com.sschoi.notifyninja;
+package com.sschoi.notifyninja.ui;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.List;
-import android.content.ComponentName;
-import android.content.Context;
-import android.provider.Settings;
-import android.text.TextUtils;
 
+import com.google.android.material.button.MaterialButton;
+import com.sschoi.notifyninja.R;
+import com.sschoi.notifyninja.db.DBHelper;
+import com.sschoi.notifyninja.model.AppModel;
+import com.sschoi.notifyninja.service.MyNotificationListener;
+import com.sschoi.notifyninja.ui.adapter.AppAdapter;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private AppAdapter adapter;
     private DBHelper dbHelper;
 
-    private Button btnRegister, btnNotifAccess, btnRefresh;
+    private MaterialButton btnRegister, btnNotifAccess, btnRefresh, btnLog;
 
     private final ActivityResultLauncher<String> smsPermLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
@@ -41,59 +45,54 @@ public class MainActivity extends AppCompatActivity {
             });
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         dbHelper = new DBHelper(this);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        // 버튼 초기화
         btnRegister = findViewById(R.id.btnRegister);
         btnNotifAccess = findViewById(R.id.btnNotifAccess);
         btnRefresh = findViewById(R.id.btnRefresh);
+        btnLog = findViewById(R.id.btnLog);
 
+        // RecyclerView 초기화
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
         adapter = new AppAdapter(dbHelper.getAllApps(), pkg -> {
             dbHelper.deleteApp(pkg);
             loadData();
         });
         recyclerView.setAdapter(adapter);
 
+        // 버튼 클릭 이벤트
         btnRegister.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, RegisterActivity.class)));
 
         btnNotifAccess.setOnClickListener(v ->
                 startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)));
 
+        btnLog.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, LogActivity.class)));
+
         btnRefresh.setOnClickListener(v -> loadData());
 
+        // 권한 요청
         requestSmsPermissionIfNeeded();
 
-        Button btnNotifAccess = findViewById(R.id.btnNotifAccess);
-
-        if (isNotificationServiceEnabled(this)) {
-            // 이미 권한 허용 → 버튼 숨기기
-            btnNotifAccess.setVisibility(View.GONE);
-        } else {
-            // 권한이 없으면 버튼 클릭 시 설정 화면으로 이동
-            btnNotifAccess.setOnClickListener(v -> {
-                startActivity(new Intent(
-                        Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
-                ));
-            });
-        }
-        ComponentName cn = new ComponentName(this, MyNotificationListener.class);
-        if (NotificationManagerCompat.getEnabledListenerPackages(this).contains(getPackageName())) {
-            Log.d("Main", "Notification Listener 권한 허용됨");
-        } else {
-            Log.d("Main", "Notification Listener 권한 없음");
-        }
+        // Notification Listener 버튼 초기 상태
+        updateNotifAccessButton();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         loadData();
+        // Notification Listener 권한 상태 확인 후 버튼 숨김/표시
+        updateNotifAccessButton();
     }
 
     private void loadData() {
@@ -105,6 +104,14 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED) {
             smsPermLauncher.launch(Manifest.permission.SEND_SMS);
+        }
+    }
+
+    private void updateNotifAccessButton() {
+        if (isNotificationServiceEnabled(this)) {
+            btnNotifAccess.setVisibility(View.GONE);
+        } else {
+            btnNotifAccess.setVisibility(View.VISIBLE);
         }
     }
 
