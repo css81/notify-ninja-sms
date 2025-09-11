@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja.model;
+package com.sschoi.notifyninja.core.model;
 
 public class ForwardLog {
     private int id;           // DB PK
