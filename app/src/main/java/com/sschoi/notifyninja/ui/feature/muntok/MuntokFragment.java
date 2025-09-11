@@ -18,6 +18,6 @@ public class MuntokFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_muntok, container, false);
+        return inflater.inflate(R.layout.fragment_muntok_home, container, false);
     }
 }

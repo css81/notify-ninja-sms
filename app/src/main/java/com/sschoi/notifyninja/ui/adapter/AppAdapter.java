@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sschoi.notifyninja.R;
-import com.sschoi.notifyninja.model.AppModel;
+import com.sschoi.notifyninja.core.model.AppModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.VH> {
     @NonNull @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_app, parent, false);
+                .inflate(R.layout.item_notify_app, parent, false);
         return new VH(v);
     }
 

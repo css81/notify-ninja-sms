@@ -22,10 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.sschoi.notifyninja.R;
-import com.sschoi.notifyninja.db.DBHelper;
-import com.sschoi.notifyninja.model.AppModel;
+import com.sschoi.notifyninja.core.db.DBHelper;
+import com.sschoi.notifyninja.core.model.AppModel;
 import com.sschoi.notifyninja.ui.LogActivity;
-import com.sschoi.notifyninja.ui.RegisterActivity;
+import com.sschoi.notifyninja.ui.feature.notifyninja.RegisterFragment;
 import com.sschoi.notifyninja.ui.adapter.AppAdapter;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class NotifyNinjaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // fragment_notify_ninja.xml 사용
-        return inflater.inflate(R.layout.fragment_notify_ninja, container, false);
+        return inflater.inflate(R.layout.fragment_notify_home, container, false);
     }
 
     @Override
@@ -76,14 +76,26 @@ public class NotifyNinjaFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         // 버튼 클릭 이벤트
-        btnRegister.setOnClickListener(v ->
-                startActivity(new Intent(getContext(), RegisterActivity.class)));
+        btnRegister.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, new RegisterFragment()) // MainActivity에 있는 FrameLayout id
+                    .addToBackStack(null) // 뒤로가기 시 NotifyNinjaFragment로 돌아올 수 있게
+                    .commit();
+        });
+
 
         btnNotifAccess.setOnClickListener(v ->
                 startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)));
 
-        btnLog.setOnClickListener(v ->
-                startActivity(new Intent(getContext(), LogActivity.class)));
+        btnLog.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, new com.sschoi.notifyninja.feature.notifyninja.LogFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
+
 
         btnRefresh.setOnClickListener(v -> loadData());
 

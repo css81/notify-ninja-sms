@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja.util;
+package com.sschoi.notifyninja.core.util;
 
 import android.content.Context;
 import android.os.Build;

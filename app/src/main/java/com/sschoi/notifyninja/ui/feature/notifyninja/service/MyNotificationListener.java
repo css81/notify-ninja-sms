@@ -7,10 +7,10 @@ import android.service.notification.StatusBarNotification;
 import android.telephony.SmsManager;
 import android.util.Log;
 
-import com.sschoi.notifyninja.db.DBHelper;
-import com.sschoi.notifyninja.db.LogDBHelper;
-import com.sschoi.notifyninja.model.AppModel;
-import com.sschoi.notifyninja.util.SMSHelper;
+import com.sschoi.notifyninja.core.db.DBHelper;
+import com.sschoi.notifyninja.core.db.LogDBHelper;
+import com.sschoi.notifyninja.core.model.AppModel;
+import com.sschoi.notifyninja.core.util.SMSHelper;
 
 import java.util.List;
 

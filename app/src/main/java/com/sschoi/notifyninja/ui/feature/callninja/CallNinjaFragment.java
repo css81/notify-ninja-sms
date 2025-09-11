@@ -18,6 +18,6 @@ public class CallNinjaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_call_ninja, container, false);
+        return inflater.inflate(R.layout.fragment_call_home, container, false);
     }
 }
