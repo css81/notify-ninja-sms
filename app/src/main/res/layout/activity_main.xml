@@ -1,73 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <!-- 상단 버튼 그룹 -->
-    <HorizontalScrollView
+    <!-- 상단 고정 영역 -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true"
-        android:scrollbars="none">
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Notify Ninja"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:spacing="8dp">
+            android:text="로그"/>
+    </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRegister"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="앱 등록"
-                android:icon="@drawable/ic_add"
-                app:iconPadding="8dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnNotifAccess"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="알림 접근"
-                android:icon="@drawable/ic_notification"
-                app:iconPadding="8dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLog"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="알림 로그"
-                android:icon="@drawable/ic_history"
-                app:iconPadding="8dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRefresh"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="새로고침"
-                android:icon="@drawable/ic_refresh"
-                app:iconPadding="8dp"/>
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <!-- RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <!-- Fragment Container -->
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="16dp"
-        android:clipToPadding="false"
-        android:divider="@color/light_gray"
-        android:dividerHeight="1dp"/>
+        android:layout_weight="1"/>
 
+    <!-- 하단 네비게이션바 -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_nav_menu"/>
 </LinearLayout>
