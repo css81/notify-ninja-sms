@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_notify_ninja"
+        android:icon="@drawable/ic_notifications"
+        android:title="노티닌자"/>
+    <item
+        android:id="@+id/nav_call_ninja"
+        android:icon="@drawable/ic_call"
+        android:title="콜닌자"/>
+    <item
+        android:id="@+id/nav_muntok"
+        android:icon="@drawable/ic_message"
+        android:title="문톡"/>
+</menu>
