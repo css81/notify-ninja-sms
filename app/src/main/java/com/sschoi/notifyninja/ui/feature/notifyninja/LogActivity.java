@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;  // ✅ 추가!
 
 import com.sschoi.notifyninja.R;
-import com.sschoi.notifyninja.db.LogDBHelper;
-import com.sschoi.notifyninja.model.ForwardLog;
-import com.sschoi.notifyninja.ui.adapter.ForwardLogAdapter;
+import com.sschoi.notifyninja.core.db.LogDBHelper;
+import com.sschoi.notifyninja.core.model.ForwardLog;
+import com.sschoi.notifyninja.ui.feature.notifyninja.adapter.ForwardLogAdapter;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class LogActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log);
+        setContentView(R.layout.fragment_notify_log);
 
         recyclerLogs = findViewById(R.id.recyclerLogs);
         tvEmpty = findViewById(R.id.tvEmpty);

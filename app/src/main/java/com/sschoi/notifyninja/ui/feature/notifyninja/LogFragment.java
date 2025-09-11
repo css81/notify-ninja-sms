@@ -16,7 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.sschoi.notifyninja.R;
 import com.sschoi.notifyninja.core.db.LogDBHelper;
 import com.sschoi.notifyninja.core.model.ForwardLog;
-import com.sschoi.notifyninja.feature.notifyninja.adapter.ForwardLogAdapter;
+import com.sschoi.notifyninja.ui.feature.notifyninja.adapter.ForwardLogAdapter;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class LogFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_log, container, false);
+        View view = inflater.inflate(R.layout.fragment_notify_log, container, false);
 
         recyclerLogs = view.findViewById(R.id.recyclerLogs);
         tvEmpty = view.findViewById(R.id.tvEmpty);

@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja.ui.adapter;
+package com.sschoi.notifyninja.ui.feature.notifyninja.adapter;
 
 import android.graphics.Color;
 import android.text.format.DateFormat;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sschoi.notifyninja.R;
-import com.sschoi.notifyninja.model.ForwardLog;
+import com.sschoi.notifyninja.core.model.ForwardLog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,7 +35,7 @@ public class ForwardLogAdapter extends RecyclerView.Adapter<ForwardLogAdapter.Lo
     @Override
     public LogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_forward_log, parent, false);
+                .inflate(R.layout.item_notify_log, parent, false);
         return new LogViewHolder(view);
     }
 

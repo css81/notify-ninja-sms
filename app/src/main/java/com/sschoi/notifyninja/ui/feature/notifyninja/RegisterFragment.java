@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja.feature.notifyninja;
+package com.sschoi.notifyninja.ui.feature.notifyninja;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -45,7 +45,7 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_register, container, false);
+        View view = inflater.inflate(R.layout.fragment_notify_register, container, false);
 
         spinnerApps = view.findViewById(R.id.spinnerApps);
         tvSelectedApp = view.findViewById(R.id.tvSelectedApp);
