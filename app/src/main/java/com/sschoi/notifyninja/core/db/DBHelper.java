@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja.db;
+package com.sschoi.notifyninja.core.db;
 
 import android.content.ContentValues;
 import android.content.Context;

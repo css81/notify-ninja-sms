@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja.db;
+package com.sschoi.notifyninja.core.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.sschoi.notifyninja.model.ForwardLog;
+import com.sschoi.notifyninja.core.model.ForwardLog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

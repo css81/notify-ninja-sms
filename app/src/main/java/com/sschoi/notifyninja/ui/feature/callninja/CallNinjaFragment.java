@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja.ui.fragment;
+package com.sschoi.notifyninja.ui.feature.callninja;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment;
 
 import com.sschoi.notifyninja.R;
 
-public class MuntokFragment extends Fragment {
+public class CallNinjaFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_muntok, container, false);
+        return inflater.inflate(R.layout.fragment_call_ninja, container, false);
     }
 }

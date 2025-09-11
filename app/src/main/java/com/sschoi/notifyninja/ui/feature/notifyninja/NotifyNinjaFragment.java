@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja.ui.fragment;
+package com.sschoi.notifyninja.ui.feature.notifyninja;
 
 import android.Manifest;
 import android.content.Context;

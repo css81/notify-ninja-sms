@@ -1,14 +1,13 @@
 package com.sschoi.notifyninja.ui;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sschoi.notifyninja.R;
-import com.sschoi.notifyninja.ui.fragment.CallNinjaFragment;
-import com.sschoi.notifyninja.ui.fragment.MuntokFragment;
-import com.sschoi.notifyninja.ui.fragment.NotifyNinjaFragment;
+import com.sschoi.notifyninja.ui.feature.callninja.CallNinjaFragment;
+import com.sschoi.notifyninja.ui.feature.muntok.MuntokFragment;
+import com.sschoi.notifyninja.ui.feature.notifyninja.NotifyNinjaFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,32 +21,32 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation = findViewById(R.id.bottomNavigation);
 
         // 기본 화면: NotifyNinja
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, new NotifyNinjaFragment())
-                .commit();
+        setFragment(new NotifyNinjaFragment(), "노티닌자");
 
         bottomNavigation.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
             int itemId = item.getItemId();
-
             if (itemId == R.id.nav_notify_ninja) {
-                selectedFragment = new NotifyNinjaFragment();
+                setFragment(new NotifyNinjaFragment(), "노티닌자");
             } else if (itemId == R.id.nav_call_ninja) {
-                selectedFragment = new CallNinjaFragment();
+                setFragment(new CallNinjaFragment(), "콜닌자");
             } else if (itemId == R.id.nav_muntok) {
-                selectedFragment = new MuntokFragment();
+                setFragment(new MuntokFragment(), "문톡");
             }
-
-            if (selectedFragment != null) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragmentContainer, selectedFragment)
-                        .commit();
-            }
-
             return true;
         });
+    }
 
+    /**
+     * Fragment 교체 및 액션바 타이틀 변경
+     */
+    private void setFragment(Fragment fragment, String title) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .commit();
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
     }
 }
