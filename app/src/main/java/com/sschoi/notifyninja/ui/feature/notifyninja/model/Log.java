@@ -1,6 +1,6 @@
-package com.sschoi.notifyninja.core.model;
+package com.sschoi.notifyninja.ui.feature.notifyninja.model;
 
-public class NotifyLog {
+public class Log {
     private int id;           // DB PK
     private String time;        // 발송 시간 (timestamp)
     private String pkg;       // 알림 보낸 앱 패키지명
@@ -8,7 +8,7 @@ public class NotifyLog {
     private String title;     // 알림 제목/내용
     private String status;    // SENT / FAILED
 
-    public NotifyLog() { }
+    public Log() { }
 
     // getter / setter
     public int getId() { return id; }

@@ -15,7 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.sschoi.notifyninja.R;
 import com.sschoi.notifyninja.core.db.LogDBHelper;
-import com.sschoi.notifyninja.core.model.NotifyLog;
+import com.sschoi.notifyninja.ui.feature.notifyninja.model.Log;
 import com.sschoi.notifyninja.ui.feature.notifyninja.adapter.LogAdapter;
 
 import java.util.List;
@@ -57,7 +57,7 @@ public class LogFragment extends Fragment {
     }
 
     private void loadLogs() {
-        List<NotifyLog> logs = logDb.getAllLogs();
+        List<Log> logs = logDb.getAllLogs();
 
         if (adapter == null) {
             adapter = new LogAdapter(logs);

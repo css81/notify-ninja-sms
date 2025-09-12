@@ -24,7 +24,6 @@ import com.google.android.material.button.MaterialButton;
 import com.sschoi.notifyninja.R;
 import com.sschoi.notifyninja.core.db.DBHelper;
 import com.sschoi.notifyninja.core.model.AppModel;
-import com.sschoi.notifyninja.ui.LogActivity;
 import com.sschoi.notifyninja.ui.feature.notifyninja.RegisterFragment;
 import com.sschoi.notifyninja.ui.adapter.AppAdapter;
 

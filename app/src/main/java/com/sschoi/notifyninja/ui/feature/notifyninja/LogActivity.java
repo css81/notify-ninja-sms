@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja.ui;
+package com.sschoi.notifyninja.ui.feature.notifyninja;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;  // ✅ 추가!
 
 import com.sschoi.notifyninja.R;
 import com.sschoi.notifyninja.core.db.LogDBHelper;
-import com.sschoi.notifyninja.core.model.NotifyLog;
+import com.sschoi.notifyninja.ui.feature.notifyninja.model.Log;
 import com.sschoi.notifyninja.ui.feature.notifyninja.adapter.LogAdapter;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class LogActivity extends AppCompatActivity {
     }
 
     private void loadLogs() {
-        List<NotifyLog> logs = logDb.getAllLogs();
+        List<Log> logs = logDb.getAllLogs();
 
         if (adapter == null) {
             adapter = new LogAdapter(logs);

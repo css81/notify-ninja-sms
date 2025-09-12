@@ -10,19 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sschoi.notifyninja.R;
-import com.sschoi.notifyninja.core.model.NotifyLog;
+import com.sschoi.notifyninja.ui.feature.notifyninja.model.Log;
 
 import java.util.List;
 
 public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
 
-    private List<NotifyLog> logList;
+    private List<Log> logList;
 
-    public LogAdapter(List<NotifyLog> logList) {
+    public LogAdapter(List<Log> logList) {
         this.logList = logList;
     }
 
-    public void setItems(List<NotifyLog> logs) {
+    public void setItems(List<Log> logs) {
         this.logList = logs;
         notifyDataSetChanged();
     }
@@ -37,7 +37,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull LogViewHolder holder, int position) {
-        NotifyLog log = logList.get(position);
+        Log log = logList.get(position);
 
         holder.tvTime.setText(log.getTime());
         holder.tvTarget.setText(log.getTarget());
