@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.sschoi.notifyninja.core.model.ForwardLog;
+import com.sschoi.notifyninja.core.model.NotifyLog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,8 +62,8 @@ public class LogDBHelper extends SQLiteOpenHelper {
     // ========================
     // 모든 로그 조회
     // ========================
-    public List<ForwardLog> getAllLogs() {
-        List<ForwardLog> list = new ArrayList<>();
+    public List<NotifyLog> getAllLogs() {
+        List<NotifyLog> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TBL_LOG,
                 new String[]{COL_ID, COL_TIME, COL_TARGET, COL_TITLE, COL_STATUS},
@@ -71,7 +71,7 @@ public class LogDBHelper extends SQLiteOpenHelper {
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                ForwardLog log = new ForwardLog();
+                NotifyLog log = new NotifyLog();
                 log.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID)));
                 log.setTime(cursor.getString(cursor.getColumnIndexOrThrow(COL_TIME)));
                 log.setTarget(cursor.getString(cursor.getColumnIndexOrThrow(COL_TARGET)));
