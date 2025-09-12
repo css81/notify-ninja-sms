@@ -1,7 +1,6 @@
 package com.sschoi.notifyninja.ui.feature.notifyninja.adapter;
 
 import android.graphics.Color;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sschoi.notifyninja.R;
-import com.sschoi.notifyninja.core.model.ForwardLog;
+import com.sschoi.notifyninja.core.model.NotifyLog;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-public class ForwardLogAdapter extends RecyclerView.Adapter<ForwardLogAdapter.LogViewHolder> {
+public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
 
-    private List<ForwardLog> logList;
+    private List<NotifyLog> logList;
 
-    public ForwardLogAdapter(List<ForwardLog> logList) {
+    public LogAdapter(List<NotifyLog> logList) {
         this.logList = logList;
     }
 
-    public void setItems(List<ForwardLog> logs) {
+    public void setItems(List<NotifyLog> logs) {
         this.logList = logs;
         notifyDataSetChanged();
     }
@@ -41,7 +37,7 @@ public class ForwardLogAdapter extends RecyclerView.Adapter<ForwardLogAdapter.Lo
 
     @Override
     public void onBindViewHolder(@NonNull LogViewHolder holder, int position) {
-        ForwardLog log = logList.get(position);
+        NotifyLog log = logList.get(position);
 
         holder.tvTime.setText(log.getTime());
         holder.tvTarget.setText(log.getTarget());

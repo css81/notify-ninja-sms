@@ -11,8 +11,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;  // ✅ 추가!
 
 import com.sschoi.notifyninja.R;
 import com.sschoi.notifyninja.core.db.LogDBHelper;
-import com.sschoi.notifyninja.core.model.ForwardLog;
-import com.sschoi.notifyninja.ui.feature.notifyninja.adapter.ForwardLogAdapter;
+import com.sschoi.notifyninja.core.model.NotifyLog;
+import com.sschoi.notifyninja.ui.feature.notifyninja.adapter.LogAdapter;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class LogActivity extends AppCompatActivity {
     private RecyclerView recyclerLogs;
     private TextView tvEmpty, tvLogGuide;
     private SwipeRefreshLayout swipeRefresh;
-    private ForwardLogAdapter adapter;
+    private LogAdapter adapter;
     private LogDBHelper logDb;
 
     @Override
@@ -46,10 +46,10 @@ public class LogActivity extends AppCompatActivity {
     }
 
     private void loadLogs() {
-        List<ForwardLog> logs = logDb.getAllLogs();
+        List<NotifyLog> logs = logDb.getAllLogs();
 
         if (adapter == null) {
-            adapter = new ForwardLogAdapter(logs);
+            adapter = new LogAdapter(logs);
             recyclerLogs.setAdapter(adapter);
         } else {
             adapter.setItems(logs);

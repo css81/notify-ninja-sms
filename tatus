@@ -1,0 +1,83 @@
+[33mcommit 39eeda35954af8242d49cbd3329d4e1220dc974d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/new[m[33m, [m[1;31morigin/feature/new[m[33m)[m
+Author: 최석순 <sschoi@skycom.ne.kr>
+Date:   Fri Sep 12 13:00:13 2025 +0900
+
+    model 위치 수정
+
+[33mcommit f2e6c88e149aa5681ce9b0de4821e5821429e428[m
+Author: 최석순 <sschoi@skycom.ne.kr>
+Date:   Fri Sep 12 08:46:20 2025 +0900
+
+    패키지 정리
+
+[33mcommit 15023558c02f92df845b6277705bfd5ad6f5d2a8[m
+Author: 최석순 <mant@nate.com>
+Date:   Thu Sep 11 21:50:43 2025 +0900
+
+    구조 변경
+
+[33mcommit 0fcc2bad4126dcb2bb3c204e6719b5cfbd08865b[m
+Author: 최석순 <sschoi@skycom.ne.kr>
+Date:   Thu Sep 11 09:00:01 2025 +0900
+
+    new 작업중
+
+[33mcommit 231dc87c6ec00817d74d95b6d3ba144093d23be3[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: 최석순 <sschoi@skycom.ne.kr>
+Date:   Wed Sep 10 08:54:45 2025 +0900
+
+    이미지 변경
+
+[33mcommit ff91299da295fbf4794faf099c6d50ce071531ab[m
+Author: 최석순 <sschoi@skycom.ne.kr>
+Date:   Wed Sep 10 08:40:13 2025 +0900
+
+    README 추가
+
+[33mcommit cf5b19eec48ce87ab66f248dfb374737751c9ebf[m[33m ([m[1;33mtag: [m[1;33mv1.0.4[m[33m)[m
+Author: 최석순 <sschoi@skycom.ne.kr>
+Date:   Wed Sep 10 08:34:52 2025 +0900
+
+    NotifyNinja v1.0.4
+    
+    보안알림추가
+    로그추가
+    앱별 발송다중화
+
+[33mcommit fad90556112f38c1f406f0b4b511f14f33ec5c5a[m
+Author: 최석순 <sschoi@skycom.ne.kr>
+Date:   Mon Sep 8 11:25:10 2025 +0900
+
+    버전 원복
+
+[33mcommit 764d19f470f759f75fb08ad16e5aec343798b732[m
+Author: 최석순 <sschoi@skycom.ne.kr>
+Date:   Mon Sep 8 11:24:14 2025 +0900
+
+    연락처 전체 발송 개선, 최대 5명
+
+[33mcommit 04c872b19926242e56feca69138c44d429ac7156[m[33m ([m[1;33mtag: [m[1;33mv1.0.3[m[33m)[m
+Author: 최석순 <sschoi@skycom.ne.kr>
+Date:   Fri Sep 5 08:41:05 2025 +0900
+
+    스플래시 추가 후 sms 발송 안되는 이슈 개선
+
+[33mcommit 14271c535f1f7dc27e45cf87766a383ceb31872a[m[33m ([m[1;33mtag: [m[1;33mv1.0.2[m[33m)[m
+Author: 최석순 <sschoi@skycom.ne.kr>
+Date:   Thu Sep 4 13:02:11 2025 +0900
+
+    앱이 2개 설치되는 이슈 처리
+
+[33mcommit 29f8aaa4cc9c87b8ba76739fba7d85d8bdc0c221[m[33m ([m[1;33mtag: [m[1;33mv1.0.1[m[33m)[m
+Author: 최석순 <sschoi@skycom.ne.kr>
+Date:   Thu Sep 4 09:34:36 2025 +0900
+
+    앱+연락처 다중 등록 추가
+    스플래시 추가
+    일부개선
+
+[33mcommit e190e0589d6fbc5567631df771dc1f98824df759[m[33m ([m[1;33mtag: [m[1;33mv1.0[m[33m)[m
+Author: 최석순 <mant@nate.com>
+Date:   Tue Sep 2 08:45:48 2025 +0900
+
+    노티닌자 푸시알림 -> sms발송 버전
