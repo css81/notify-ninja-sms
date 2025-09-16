@@ -90,7 +90,7 @@ public class NotifyNinjaFragment extends Fragment {
         btnLog.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragmentContainer, new com.sschoi.notifyninja.feature.notifyninja.LogFragment())
+                    .replace(R.id.fragmentContainer, new com.sschoi.notifyninja.ui.feature.notifyninja.LogFragment())
                     .addToBackStack(null)
                     .commit();
         });
