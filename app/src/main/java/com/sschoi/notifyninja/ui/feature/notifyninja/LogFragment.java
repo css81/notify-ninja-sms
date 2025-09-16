@@ -1,4 +1,4 @@
-package com.sschoi.notifyninja.feature.notifyninja;
+package com.sschoi.notifyninja.ui.feature.notifyninja;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
