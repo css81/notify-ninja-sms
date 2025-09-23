@@ -25,6 +25,28 @@
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:hint="예: 01012345678" android:inputType="phone" />
 
+    <TextView
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="알림 필터 (선택)" android:textStyle="bold" android:layout_marginTop="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="- 보낸사람 이름 (포함 매칭)" android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/etSenderName"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:hint="필터 예: 홍길동, 우리은행" android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="- 보낸사람 번호 (숫자 포함 매칭)" android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/etSenderNumber"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:hint="필터 예: 1588, 0101234" android:inputType="phone" />
+
     <Button
         android:id="@+id/btnSave"
         android:layout_width="match_parent" android:layout_height="wrap_content"

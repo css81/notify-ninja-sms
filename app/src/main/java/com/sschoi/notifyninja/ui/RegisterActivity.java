@@ -26,6 +26,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Spinner spinnerApps;
     private TextView tvSelectedApp;
     private EditText etPhone;
+    private EditText etSenderName;
+    private EditText etSenderNumber;
     private Button btnSave;
 
     private final List<AppModel> launchableApps = new ArrayList<>();
@@ -40,6 +42,8 @@ public class RegisterActivity extends AppCompatActivity {
         spinnerApps = findViewById(R.id.spinnerApps);
         tvSelectedApp = findViewById(R.id.tvSelectedApp);
         etPhone = findViewById(R.id.etPhone);
+        etSenderName = findViewById(R.id.etSenderName);
+        etSenderNumber = findViewById(R.id.etSenderNumber);
         btnSave = findViewById(R.id.btnSave);
 
         dbHelper = new DBHelper(this);
@@ -99,7 +103,10 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "받는 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
             return;
         }
-        boolean ok = dbHelper.insertApp(selectedApp.getPackageName(), selectedApp.getAppName(), phone);
+        String senderName = etSenderName.getText().toString().trim();
+        String senderNumber = etSenderNumber.getText().toString().trim();
+
+        boolean ok = dbHelper.insertApp(selectedApp.getPackageName(), selectedApp.getAppName(), phone, senderName.isEmpty() ? null : senderName, senderNumber.isEmpty() ? null : senderNumber);
         if (ok) {
             Toast.makeText(this, "등록 완료", Toast.LENGTH_SHORT).show();
             finish();
