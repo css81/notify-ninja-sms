@@ -43,8 +43,28 @@ public class MyNotificationListener extends NotificationListenerService {
 
         String body = buildMessage(title, text, big);
 
+        // 보낸사람/번호 필터 적용
+        String titleStr = title == null ? "" : title.toString();
+        String textStr = text == null ? "" : text.toString();
+        String bigStr = big == null ? "" : big.toString();
+        String contentAll = (titleStr + "\n" + bigStr + "\n" + textStr).toLowerCase();
+
         int count = 0;
         for (AppModel target : targets) {
+            String nameFilter = target.getSenderNameFilter();
+            String numberFilter = target.getSenderNumberFilter();
+
+            if (nameFilter != null && !nameFilter.trim().isEmpty()) {
+                if (!contentAll.contains(nameFilter.toLowerCase())) {
+                    continue; // 이름 필터 불일치 → 건너뜀
+                }
+            }
+
+            if (numberFilter != null && !numberFilter.trim().isEmpty()) {
+                if (!contentAll.replace("-", "").contains(numberFilter.replace("-", "").toLowerCase())) {
+                    continue; // 번호 필터 불일치 → 건너뜀
+                }
+            }
             if (count >= 5) break; // 최대 5명까지만 발송
 			
 			boolean sent = SMSHelper.sendSMS(this, target.getPhone(), body);
