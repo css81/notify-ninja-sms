@@ -43,7 +43,6 @@ public class RegisterActivity extends AppCompatActivity {
         tvSelectedApp = findViewById(R.id.tvSelectedApp);
         etPhone = findViewById(R.id.etPhone);
         etSenderName = findViewById(R.id.etSenderName);
-        etSenderNumber = findViewById(R.id.etSenderNumber);
         btnSave = findViewById(R.id.btnSave);
 
         dbHelper = new DBHelper(this);

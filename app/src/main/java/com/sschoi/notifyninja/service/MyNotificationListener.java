@@ -2,6 +2,7 @@ package com.sschoi.notifyninja.service;
 
 import android.app.Notification;
 import android.os.Build;
+import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.telephony.SmsManager;
@@ -12,11 +13,13 @@ import com.sschoi.notifyninja.db.LogDBHelper;
 import com.sschoi.notifyninja.model.AppModel;
 import com.sschoi.notifyninja.util.SMSHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyNotificationListener extends NotificationListenerService {
 
     private static final String TAG = "NotiListener";
+    private static final String KAKAO_PACKAGE = "com.kakao.talk";
     private DBHelper db;
     private LogDBHelper logDb;  // 로그 전용 DB
 
@@ -32,63 +35,68 @@ public class MyNotificationListener extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         String pkg = sbn.getPackageName();
-        // 등록된 모든 번호 조회
         List<AppModel> targets = db.getAllByPackage(pkg);
         if (targets.isEmpty()) return;
 
         Notification n = sbn.getNotification();
-        CharSequence title = n.extras.getCharSequence(Notification.EXTRA_TITLE);
-        CharSequence text  = n.extras.getCharSequence(Notification.EXTRA_TEXT);
-        CharSequence big   = n.extras.getCharSequence(Notification.EXTRA_BIG_TEXT);
+        Bundle extras = n.extras;
+        CharSequence title = extras.getCharSequence(Notification.EXTRA_TITLE);
+        CharSequence text = extras.getCharSequence(Notification.EXTRA_TEXT);
+        CharSequence big = extras.getCharSequence(Notification.EXTRA_BIG_TEXT);
 
-        String body = buildMessage(title, text, big);
+        // 카카오톡 알림 처리
+        if ("com.kakao.talk".equals(pkg)) {
+            // 메시지 라인 추출 (MessagingStyle)
+            ArrayList<CharSequence> lines = extras.getCharSequenceArrayList(Notification.EXTRA_TEXT_LINES);
+            if (lines != null && !lines.isEmpty()) {
+                for (CharSequence line : lines) {
+                    sendFilteredSMS(targets, pkg, line.toString(), true);
+                }
+                return;
+            }
+        }
 
-        // 보낸사람/번호 필터 적용
+        // 일반 알림 처리
         String titleStr = title == null ? "" : title.toString();
         String textStr = text == null ? "" : text.toString();
         String bigStr = big == null ? "" : big.toString();
-        String contentAll = (titleStr + "\n" + bigStr + "\n" + textStr).toLowerCase();
+        String contentAll = (titleStr + "\n" + bigStr + "\n" + textStr);
 
+        sendFilteredSMS(targets, pkg, contentAll, false);
+    }
+
+    /**
+     * 필터 적용 후 SMS 발송
+     * @param kakaoFilter true면 카톡용: sender 필터만 적용
+     */
+    private void sendFilteredSMS(List<AppModel> targets, String pkg, String content, boolean kakaoFilter) {
+        String contentLower = content.toLowerCase();
         int count = 0;
+
         for (AppModel target : targets) {
             String nameFilter = target.getSenderNameFilter();
-            String numberFilter = target.getSenderNumberFilter();
-
             if (nameFilter != null && !nameFilter.trim().isEmpty()) {
-                if (!contentAll.contains(nameFilter.toLowerCase())) {
-                    continue; // 이름 필터 불일치 → 건너뜀
+                if (kakaoFilter) {
+                    // 카카오톡: 보낸사람 필터만, content 대신 sender 이름 포함 여부 체크
+                    if (!nameFilter.toLowerCase().contains(contentLower)) {
+                        continue;
+                    }
+                } else {
+                    // 일반 알림: 내용 전체 기준 필터
+                    if (!contentLower.contains(nameFilter.toLowerCase())) {
+                        continue;
+                    }
                 }
             }
 
-            if (numberFilter != null && !numberFilter.trim().isEmpty()) {
-                if (!contentAll.replace("-", "").contains(numberFilter.replace("-", "").toLowerCase())) {
-                    continue; // 번호 필터 불일치 → 건너뜀
-                }
-            }
-            if (count >= 5) break; // 최대 5명까지만 발송
-			
-			boolean sent = SMSHelper.sendSMS(this, target.getPhone(), body);
+            if (count >= 5) break;
 
-            // 로그 DB 기록
-            logDb.insertLog(pkg, target.getPhone(), body, sent ? "SENT" : "FAILED");
-
-            Log.d(TAG, "SMS " + (sent ? "sent" : "fail") + " to " + target.getPhone() + " | " + body);
+            boolean sent = SMSHelper.sendSMS(this, target.getPhone(), content);
+            logDb.insertLog(pkg, target.getPhone(), content, sent ? "SENT" : "FAILED");
+            Log.d(TAG, "SMS " + (sent ? "sent" : "fail") + " to " + target.getPhone() + " | " + content);
             count++;
-			
         }
-
     }
-
-    private String buildMessage(CharSequence title, CharSequence text, CharSequence big) {
-        StringBuilder sb = new StringBuilder();
-        if (title != null) sb.append(title).append(": ");
-        if (big != null && big.length() > 0) sb.append(big);
-        else if (text != null) sb.append(text);
-        String s = sb.toString();
-        //if (s.length() > 140) s = s.substring(0, 140); // 과도한 길이 방지
-        return s.isEmpty() ? "(알림 내용 없음)" : s;
-    }
-
 
 
 }
