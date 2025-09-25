@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sschoi.notifyninja.BuildConfig;
 import com.sschoi.notifyninja.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -24,7 +25,9 @@ public class SplashActivity extends AppCompatActivity {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;  // AndroidManifest의 versionName
             tvVersion.setText("v" + version);
-            tvDeveloper.setText(getString(R.string.developer_name));
+            // Gradle BuildConfig에서 DEVELOPER_NAME 가져오기
+            tvDeveloper.setText("by " + BuildConfig.DEVELOPER_NAME);
+
         } catch (PackageManager.NameNotFoundException e) {
             tvVersion.setText("v1.0");
             tvDeveloper.setText("by 최석순");

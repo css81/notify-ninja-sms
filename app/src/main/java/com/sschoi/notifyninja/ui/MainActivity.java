@@ -69,8 +69,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         // 버튼 클릭 이벤트
-        btnRegister.setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, RegisterActivity.class)));
+        btnRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+            startActivityForResult(intent, 100);
+        });
 
         btnNotifAccess.setOnClickListener(v ->
                 startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)));
@@ -131,5 +133,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            // RegisterActivity에서 등록 완료 후 돌아온 경우 데이터 새로고침
+            loadData();
+        }
     }
 }
