@@ -67,7 +67,9 @@
             android:name=".service.MyNotificationListener"
             android:label="Notification Forwarder"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-            android:exported="true">
+            android:exported="true"
+            android:enabled="true"
+            android:process=":notification">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService"/>
             </intent-filter>
