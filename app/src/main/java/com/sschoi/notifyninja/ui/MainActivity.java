@@ -10,23 +10,18 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.button.MaterialButton;
 import com.sschoi.notifyninja.R;
 import com.sschoi.notifyninja.db.DBHelper;
 import com.sschoi.notifyninja.model.AppModel;
-import com.sschoi.notifyninja.service.MyNotificationListener;
 import com.sschoi.notifyninja.ui.adapter.AppAdapter;
-
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
