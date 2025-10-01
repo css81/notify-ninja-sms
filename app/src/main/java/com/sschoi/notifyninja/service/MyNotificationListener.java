@@ -93,12 +93,13 @@ public class MyNotificationListener extends NotificationListenerService {
             // SMS 앱 알림 처리 - 발신자 번호 추출 시도
             if (isSMSApp(pkg)) {
                 String senderNumber = extractSenderNumber(title, text, big);
-                String titleStr = title == null ? "" : title.toString();
-                String textStr = text == null ? "" : text.toString();
-                String bigStr = big == null ? "" : big.toString();
-                String contentAll = (titleStr + "\n" + bigStr + "\n" + textStr);
-                
-                sendFilteredSMS(targets, pkg, contentAll, false, senderNumber);
+                //String titleStr = title == null ? "" : title.toString();
+                //String textStr = text == null ? "" : text.toString();
+				//String bigStr = big == null ? "" : big.toString();
+				//String contentAll = (titleStr + "\n" + bigStr + "\n" + textStr);
+                String body = buildContentAll(title, text, big);
+				
+                sendFilteredSMS(targets, pkg, body, false, senderNumber);
                 return;
             }
 
@@ -115,12 +116,13 @@ public class MyNotificationListener extends NotificationListenerService {
             }
 
             // 일반 알림 처리
-            String titleStr = title == null ? "" : title.toString();
-            String textStr = text == null ? "" : text.toString();
-            String bigStr = big == null ? "" : big.toString();
-            String contentAll = (titleStr + "\n" + bigStr + "\n" + textStr);
-
-            sendFilteredSMS(targets, pkg, contentAll, false, null);
+            //String titleStr = title == null ? "" : title.toString();
+            //String textStr = text == null ? "" : text.toString();
+            //String bigStr = big == null ? "" : big.toString();
+            //String contentAll = (titleStr + "\n" + bigStr + "\n" + textStr);
+			String body = buildContentAll(title, text, big);
+			 
+            sendFilteredSMS(targets, pkg, body, false, null);
         } catch (Exception e) {
             Log.e(TAG, "Error processing notification", e);
         }
@@ -223,6 +225,26 @@ public class MyNotificationListener extends NotificationListenerService {
             Log.e(TAG, "Error in sendFilteredSMS", e);
         }
     }
+	
+	/**
+	 * contentAll 생성 (중복 제거, 비어있는 항목 제외)
+	 */
+	private String buildContentAll(CharSequence title, CharSequence text, CharSequence big) {
+		StringBuilder sb = new StringBuilder();
+		if (title != null && title.length() > 0) sb.append(title);
 
+		if (big != null && big.length() > 0 && !big.equals(text)) {
+			if (sb.length() > 0) sb.append("\n");
+			sb.append(big);
+		}
+
+		if (text != null && text.length() > 0 && !text.equals(big)) {
+			if (sb.length() > 0) sb.append("\n");
+			sb.append(text);
+		}
+
+		String result = sb.toString().trim();
+		return result.isEmpty() ? "(알림 내용 없음)" : result;
+	}
 
 }
