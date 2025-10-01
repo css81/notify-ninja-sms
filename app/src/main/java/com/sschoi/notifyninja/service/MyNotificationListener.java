@@ -229,22 +229,31 @@ public class MyNotificationListener extends NotificationListenerService {
 	/**
 	 * contentAll 생성 (중복 제거, 비어있는 항목 제외)
 	 */
-	private String buildContentAll(CharSequence title, CharSequence text, CharSequence big) {
-		StringBuilder sb = new StringBuilder();
-		if (title != null && title.length() > 0) sb.append(title);
+    private String buildContentAll(CharSequence title, CharSequence text, CharSequence big) {
+        StringBuilder sb = new StringBuilder();
 
-		if (big != null && big.length() > 0 && !big.equals(text)) {
-			if (sb.length() > 0) sb.append("\n");
-			sb.append(big);
-		}
+        // 제목
+        if (title != null && title.length() > 0) {
+            sb.append(title);
+        }
 
-		if (text != null && text.length() > 0 && !text.equals(big)) {
-			if (sb.length() > 0) sb.append("\n");
-			sb.append(text);
-		}
+        // BigText 우선
+        if (big != null && big.length() > 0) {
+            if (sb.length() > 0) sb.append("\n");
+            sb.append(big);
+        }
 
-		String result = sb.toString().trim();
-		return result.isEmpty() ? "(알림 내용 없음)" : result;
-	}
+        // BigText와 다른 경우에만 Text 추가
+        if (text != null && text.length() > 0) {
+            if (big == null || !text.toString().trim().equals(big.toString().trim())) {
+                if (sb.length() > 0) sb.append("\n");
+                sb.append(text);
+            }
+        }
+
+        String result = sb.toString().trim();
+        return result.isEmpty() ? "(알림 내용 없음)" : result;
+    }
+
 
 }
